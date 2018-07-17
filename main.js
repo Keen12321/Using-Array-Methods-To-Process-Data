@@ -1,10 +1,10 @@
-// const answer1 = document.querySelector('#answer1')
+const answer1 = document.querySelector('#answer1')
 
-// var avgprice = items.reduce(function(a, b) {
-// 	return a + b.price / 25
-// }, 0)
+var avgprice = (items.reduce(function(a, b) {
+	return a + b.price
+}, 0) / items.length).toFixed(2)
 
-// answer1.innerHTML = `The average price is $${avgprice.toFixed(2)}`
+answer1.innerHTML = `The average price is $${avgprice}`
 
 
 
@@ -16,10 +16,64 @@ var cheap = items.filter(function(item) {
 	} else {
 		return false
 	}
+}).map(function(item) {
+	return item.title
+}).join(`\n`)
 
-	item.forEach(function(a) {
-		return cheap += item.title
-	})
+answer2.innerHTML = cheap
+
+
+
+
+const answer3 = document.querySelector('#answer3')
+
+var gbp = items.filter(function(item) {
+	return item.currency_code === 'GBP'
+})[0]
+
+var gbpDisplay = gbp.title + " $" + gbp.price
+
+answer3.innerHTML = gbpDisplay
+
+
+
+
+const answer4 = document.querySelector('#answer4')
+
+var woodItems = items.filter(function(item) {
+	return item.materials.indexOf('wood') !== -1
+}).map(function(item) {
+	return item.title
+}).join(`\n`)
+
+answer4.innerHTML = woodItems
+
+
+
+
+const answer5 = document.querySelector('#answer5')
+
+var tonsOfMats = items.filter(function(item) {
+	return item.materials.length >= 8 
 })
 
-answer2.innerHTML = `${cheap}`
+let more = ''
+
+tonsOfMats.forEach(function(item) {
+	more += `${item.title} has ${item.materials.length} materials\n`
+
+	more += item.materials.join('\n')
+})
+
+answer5.innerHTML = more
+
+
+
+
+const answer6 = document.querySelector('#answer6')
+
+var madeBySellers = items.filter(function(item) {
+	return item.who_made == 'i_did'
+}).length
+
+answer6.innerHTML = `${madeBySellers} were made by sellers`
